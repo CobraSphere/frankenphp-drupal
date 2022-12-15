@@ -23,25 +23,27 @@ COPY --from=composer/composer:2-bin /composer /usr/local/bin/
 
 WORKDIR /opt/drupal
 
+# TODO: Replace this section with installing from an existing composer.json if exists
+
 # Copy from the official image when Drupal 10.0 will be released
-RUN set -eux; \
-    export COMPOSER_HOME="$(mktemp -d)"; \
-    composer create-project --no-interaction --no-progress "${DRUPAL_PROJECT}:${DRUPAL_VERSION}" ./; \
-    chown -R www-data:www-data web/sites web/modules web/themes; \
-    rm -rf /app/public; \
-    ln -sf /opt/drupal/web /app/public; \
-    sed -i'' 's/public/web/' /etc/Caddyfile; \
-    cp /opt/drupal/web/sites/default/default.settings.php /opt/drupal/web/sites/default/settings.php; \
-    # delete composer cache
-    rm -rf "$COMPOSER_HOME"
+# RUN set -eux; \
+#     export COMPOSER_HOME="$(mktemp -d)"; \
+#     composer create-project --no-interaction --no-progress "${DRUPAL_PROJECT}:${DRUPAL_VERSION}" ./; \
+#     chown -R www-data:www-data web/sites web/modules web/themes; \
+#     rm -rf /app/public; \
+#     ln -sf /opt/drupal/web /app/public; \
+#     sed -i'' 's/public/web/' /etc/Caddyfile; \
+#     cp /opt/drupal/web/sites/default/default.settings.php /opt/drupal/web/sites/default/settings.php; \
+#     # delete composer cache
+#     rm -rf "$COMPOSER_HOME"
 
 ENV PATH=${PATH}:/opt/drupal/vendor/bin
 
-# COPY docker/drupal/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-# RUN chmod +x /usr/local/bin/docker-entrypoint
+COPY docker/drupal/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
 
-# ENTRYPOINT ["docker-entrypoint"]
-# CMD ["frankenphp", "run"]
+ENTRYPOINT ["docker-entrypoint"]
+CMD [ "--config", "/etc/Caddyfile" ]
 
 # ----------------------
 # PostgreSQL Database

@@ -22,12 +22,5 @@ docker compose pull --include-deps
 docker compose up
 ```
 
-Drupal is available on `https://localhost`.
-
-During initial Drupal setup:
-* Database type: `PostgreSQL`
-* Database name: `postgres`
-* Database username: `postgres`
-* Database password: `example` (change it in `docker-compose.yml`)
-* ADVANCED OPTIONS; Database host: `postgres`
+Drupal will be installed during container startup with `admin` for the username and password.
 

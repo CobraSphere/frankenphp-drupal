@@ -36,6 +36,11 @@ services:
       # existing content of the image at the same location
       - /app/public/sites
     restart: always
+    environment:
+      DRUPAL_PROJECT: ${DRUPAL_PROJECT:-drupal/recommended-project}
+      DRUPAL_VERSION: ${DRUPAL_VERSION:-10.0.0-rc3}
+      DRUPAL_ADMIN_PASSWORD: ${DRUPAL_ADMIN_PASSWORD:-admin}
+      DATABASE_URL: pgsql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-example}@database:5432/${POSTGRES_DB:-postgres}?serverVersion=${POSTGRES_VERSION:-14}
 
   database:
     build:
