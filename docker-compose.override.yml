@@ -17,9 +17,15 @@ services:
     ports:
       - 80:80
       - 443:443
-    # volumes:
-    #   - ./drupal:/opt/drupal
-    #   - /opt/drupal/vendor
+    volumes:
+      # enable this (and comment the rest) if you really need access to drupal core and vendor
+      # - ./drupal:/opt/drupal
+      # if you need access to everything (core and vendor), comment these and enable the above.
+      # TODO: This can be improved by re-working all the paths to enable composer.* to show
+      - ./drupal/web/modules:/opt/drupal/web/modules
+      - ./drupal/web/profiles:/opt/drupal/web/profiles
+      - ./drupal/web/sites:/opt/drupal/web/sites
+      - ./drupal/web/themes:/opt/drupal/web/themes
     restart: always
 
   database:
