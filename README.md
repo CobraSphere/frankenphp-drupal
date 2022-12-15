@@ -3,6 +3,8 @@
 Run the popular [Drupal CMS](https://drupal.org) on top of [FrankenPHP](https://frankenphp.dev),
 the modern app server for PHP.
 
+Based on the original created by Kévin Dunglas: https://github.com/dunglas/frankenphp-drupal
+
 ## Getting Started
 
 ### Fork (this repo) instructions
