@@ -1,3 +1,5 @@
+# Inspired by Makefile example from Kévin Dunglas: https://github.com/dunglas/symfony-docker/blob/main/docs/makefile.md
+
 # Executables (local)
 DOCKER_COMP = docker compose
 
