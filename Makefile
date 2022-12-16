@@ -4,12 +4,13 @@
 DOCKER_COMP = docker compose
 
 # Docker containers
-PHP_CONT = $(DOCKER_COMP) exec php
+DRUPAL_CONT = $(DOCKER_COMP) exec drupal
 
 # Executables
-PHP      = $(PHP_CONT) php
-COMPOSER = $(PHP_CONT) composer
-SYMFONY  = $(PHP_CONT) bin/console
+PHP      = $(DRUPAL_CONT) php
+COMPOSER = $(DRUPAL_CONT) composer
+SYMFONY  = $(DRUPAL_CONT) bin/console
+DRUPAL   = $(DRUPAL_CONT) php web/core/scripts/drupal
 
 # Environment variables
 include .env
@@ -44,7 +45,7 @@ logs: ## Show live logs
 	@$(DOCKER_COMP) logs --tail=0 --follow
 
 sh: ## Connect to the PHP FPM container
-	@$(PHP_CONT) sh
+	@$(DRUPAL_CONT) sh
 
 ## —— Composer 🧙 ——————————————————————————————————————————————————————————————
 composer: ## Run composer, pass the parameter "c=" to run a given command, example: make composer c='req symfony/orm-pack'
@@ -62,3 +63,9 @@ sf: ## List all Symfony commands or pass the parameter "c=" to run a given comma
 
 cc: c=c:c ## Clear the cache
 cc: sf
+
+## —— Drupal ——————————————————————————————————————————————————————————————————
+## The parameter "p=" to run a given command, example: make drupal-generate-theme p=my_new_theme
+drupal-generate-theme:
+	@$(eval p ?=)
+	@$(DRUPAL) generate-theme $(p)

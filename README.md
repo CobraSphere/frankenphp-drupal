@@ -11,6 +11,7 @@ Based on the original created by Kévin Dunglas: https://github.com/dunglas/fran
 ```
 git clone https://github.com/CobraSphere/frankenphp-drupal
 cd frankenphp-drupal
+cp .env.example .env # and adapt as needed
 docker compose pull --include-deps
 docker compose up
 ```
