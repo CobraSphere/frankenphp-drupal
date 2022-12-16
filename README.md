@@ -1,4 +1,4 @@
-# Drupal on FrankenPHP
+# Drupal on FrankenPHP (with Caddy Server)
 
 Run the popular [Drupal CMS](https://drupal.org) on top of [FrankenPHP](https://frankenphp.dev),
 the modern app server for PHP.
